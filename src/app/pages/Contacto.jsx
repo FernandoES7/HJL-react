@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { API_BASE } from '../services/api';
+import { resolveApiUrl } from '../services/api';
 
 export function Contacto() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
@@ -12,7 +12,7 @@ export function Contacto() {
     if (!form.name || !form.email || !form.message) return;
     try {
       setLoading(true);
-      await fetch(`${API_BASE}/contact`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) });
+      await fetch(resolveApiUrl('/contact'), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) });
       setSent(true);
       setForm({ name: '', email: '', phone: '', message: '' });
     } catch { console.error('Error al enviar'); }

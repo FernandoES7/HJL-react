@@ -1,6 +1,28 @@
-export const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
+const DEFAULT_BASE = '/api';
 
-const BASE = API_BASE;
+function normalizePath(path) {
+  if (!path) return '';
+  return path.startsWith('/') ? path : `/${path}`;
+}
+
+/** Une base + path sin duplicar segmentos (p. ej. /api + /api/foo → /api/foo). */
+export function resolveApiUrl(path) {
+  const rawBase = import.meta.env.VITE_API_BASE_URL || DEFAULT_BASE;
+  const normalizedPath = normalizePath(path);
+
+  if (/^https?:\/\//i.test(rawBase)) {
+    const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+    return new URL(normalizedPath.replace(/^\//, ''), base).toString();
+  }
+
+  const base = rawBase.replace(/\/+$/, '') || DEFAULT_BASE;
+  if (normalizedPath === base || normalizedPath.startsWith(`${base}/`)) {
+    return normalizedPath;
+  }
+  return `${base}${normalizedPath}`;
+}
+
+export const API_BASE = import.meta.env.VITE_API_BASE_URL || DEFAULT_BASE;
 
 function authHeaders() {
   const token = localStorage.getItem('hostal_token');
@@ -9,7 +31,7 @@ function authHeaders() {
 
 async function request(path, options = {}) {
   const { headers: extraHeaders, ...rest } = options;
-  const res = await fetch(`${BASE}${path}`, {
+  const res = await fetch(resolveApiUrl(path), {
     credentials: 'include',
     ...rest,
     headers: {
