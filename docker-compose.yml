@@ -1,0 +1,17 @@
+services:
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hostal_client
+    restart: unless-stopped
+    ports:
+      - "${CLIENT_PORT:-8080}:80"
+    environment:
+      # URL del backend (sin barra final). Ejemplos:
+      #   - Servidor local: http://host.docker.internal:4000
+      #   - Misma red Docker: http://hostal_server:4000
+      #   - Producción: https://api.tudominio.com
+      API_UPSTREAM: ${API_UPSTREAM:-http://host.docker.internal:4000}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
