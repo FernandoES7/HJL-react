@@ -1,4 +1,5 @@
-export const API_BASE = `${import.meta.env.VITE_API_PROXY_TARGET}/api`;
+//export const API_BASE = `${import.meta.env.VITE_API_PROXY_TARGET}/api`;
+export const API_BASE = `https://hjl-nodejs.onrender.com/api`;
 
 function authHeaders() {
   const token = localStorage.getItem('hostal_token');
