@@ -55,7 +55,7 @@ export function Home() {
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} 
             className="text-white max-w-2xl text-center md:text-left flex flex-col items-center md:items-start">
             <h1 className="text-4xl md:text-5xl font-bold tracking-wide" style={{ marginBottom: '24px', lineHeight: '1.2' }}>
-              Tu Hogar en el Corazón de Miraflores
+              Tu Hogar en el Corazón de Miraflores!!!
             </h1>
             <p className="text-lg text-gray-200" style={{ marginBottom: '48px', lineHeight: '1.6' }}>
               Confort, elegancia y atención personalizada para viajeros exigentes.
