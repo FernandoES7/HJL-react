@@ -10,7 +10,6 @@ async function request(path, options = {}) {
   console.log(API_BASE);
   const { headers: extraHeaders, ...rest } = options;
   const res = await fetch(`${API_BASE}${path}`, {
-    credentials: 'include',
     ...rest,
     headers: {
       'Content-Type': 'application/json',
