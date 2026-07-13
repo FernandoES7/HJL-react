@@ -1,4 +1,4 @@
-export const API_BASE = `${import.meta.env.API_PROXY_TARGET}/api`;
+export const API_BASE = `${import.meta.env.VITE_API_PROXY_TARGET}/api`;
 
 function authHeaders() {
   const token = localStorage.getItem('hostal_token');
